@@ -57,8 +57,8 @@ ENV ANDROID_BUILD_TOOLS_VERSION $sdk_tools_version
 
 RUN yes | sdkmanager \
     "platforms;android-$ANDROID_PLATFORM_VERSION" \
-    "build-tools;$ANDROID_BUILD_TOOLS_VERSION" \
-    "patcher;v4" "emulator"
+    "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
+#    "patcher;v4" "emulator"
 #  "cmdline-tools;latest" 
 
 # for some reason, this will be downloaded on the build stage anyway
