@@ -21,7 +21,7 @@ RUN set -o xtrace \
     && cd /opt \
     && apt-get update \
     && apt-get install -y locales locales-all \
-    && apt-get install -y openjdk-11-jdk \
+    && apt-get install -y openjdk-21-jdk \
     && apt-get install -y --no-install-recommends \
             wget zip unzip git openssh-client curl bc software-properties-common build-essential \
             ruby-full ruby-bundler libstdc++6 libpulse0 libglu1-mesa lcov libsqlite3-dev \
