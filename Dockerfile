@@ -1,6 +1,7 @@
 FROM ubuntu:22.04
 #android tools from https://github.com/cirruslabs/docker-images-android/blob/master/sdk/tools/Dockerfile
 
+
 USER root
 SHELL ["/bin/bash", "-c"]
 
@@ -8,14 +9,14 @@ ENV ANDROID_HOME=/opt/android-sdk-linux \
     LANG=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
     LANGUAGE=en_US:en \
-    TZ=Europe/Kiev\
+    TZ=Europe/Kyiv\
     DEBIAN_FRONTEND=noninteractive
 
 ENV ANDROID_SDK_ROOT=$ANDROID_HOME \
     PATH=${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/emulator
 
 # comes from https://developer.android.com/studio/#command-tools
-ENV ANDROID_SDK_TOOLS_VERSION 9477386
+ENV ANDROID_SDK_TOOLS_VERSION 11076708
 
 RUN set -o xtrace \
     && cd /opt \
@@ -47,27 +48,12 @@ RUN set -o xtrace \
 
 RUN if [[ $(uname -m) == "x86_64" ]] ; then sdkmanager emulator ; fi
 
-ARG flutter_version
-ARG sdk_version
-ARG sdk_tools_version
+ARG FLUTTER_VERSION
+ARG ANDROID_PACKAGES
 
+RUN yes | sdkmanager $ANDROID_PACKAGES
 
-ENV ANDROID_PLATFORM_VERSION $sdk_version
-ENV ANDROID_BUILD_TOOLS_VERSION $sdk_tools_version
-
-RUN yes | sdkmanager \
-    "platforms;android-$ANDROID_PLATFORM_VERSION" \
-    "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
-#    "patcher;v4" "emulator"
-#  "cmdline-tools;latest" 
-
-# for some reason, this will be downloaded on the build stage anyway
-RUN yes | sdkmanager \
-     "platforms;android-29" "platforms;android-30" "platforms;android-31" "platforms;android-32" \
-     "build-tools;30.0.3" 
-     
-ENV FLUTTER_HOME=${HOME}/sdks/flutter \
-    FLUTTER_VERSION=$flutter_version
+ENV FLUTTER_HOME=${HOME}/sdks/flutter
 ENV FLUTTER_ROOT=$FLUTTER_HOME
 
 ENV PATH ${PATH}:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin
