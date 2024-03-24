@@ -18,11 +18,13 @@ ENV ANDROID_SDK_ROOT=$ANDROID_HOME \
 # comes from https://developer.android.com/studio/#command-tools
 ENV ANDROID_SDK_TOOLS_VERSION 11076708
 
+ARG JDK_PACKAGE openjdk-21-jdk
+
 RUN set -o xtrace \
     && cd /opt \
     && apt-get update \
     && apt-get install -y locales locales-all \
-    && apt-get install -y openjdk-21-jdk \
+    && apt-get install -y $JDK_PACKAGE \
     && apt-get install -y --no-install-recommends \
             wget zip unzip git openssh-client curl bc software-properties-common build-essential \
             ruby-full ruby-bundler libstdc++6 libpulse0 libglu1-mesa lcov libsqlite3-dev \

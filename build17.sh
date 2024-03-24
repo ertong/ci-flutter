@@ -9,6 +9,7 @@ TAG=$FLUTTER_VER-api$SDK_VER-jdk17
 
 docker buildx build --pull \
   --build-arg FLUTTER_VERSION=$FLUTTER_VER \
+  --build-arg JDK_PACKAGE=openjdk-17-jdk
   --build-arg "ANDROID_PACKAGES=$ANDROID_PACKAGES" \
   -t ertong/flutter:$TAG . || exit 1
 
