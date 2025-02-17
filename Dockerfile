@@ -47,15 +47,24 @@ ARG ANDROID_PACKAGES
 
 RUN yes | sdkmanager $ANDROID_PACKAGES
 
-ENV FLUTTER_HOME=${HOME}/sdks/flutter
+ENV HOME=/root
+ENV FLUTTER_HOME=/sdks/flutter
 ENV FLUTTER_ROOT=$FLUTTER_HOME
 
 ENV PATH ${PATH}:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin
 
-RUN git clone --depth 1 --branch ${FLUTTER_VERSION} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
+#https://github.com/flutter/flutter/issues/163198#issuecomment-2656452658
+#https://www.reddit.com/r/FlutterDev/comments/1io6wo4/comment/mci9f77/
+#RUN git clone --depth 3 --branch ${FLUTTER_VERSION} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
+#RUN git clone --branch ${FLUTTER_VERSION} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
+RUN mkdir -p $FLUTTER_HOME/.. && cd $FLUTTER_HOME/.. \
+    && curl -sLO "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz" \ 
+    && tar xf flutter_linux_${FLUTTER_VERSION}-stable.tar.xz \
+    && rm -rf flutter_linux_${FLUTTER_VERSION}-stable.tar.xz \
+    && chown -R root:root ${FLUTTER_HOME} \
+    && flutter --disable-analytics \
+    && flutter precache --android \
+    && (yes | flutter doctor --android-licenses)
 
-RUN yes | flutter doctor --android-licenses \
-    && flutter doctor \
-    && chown -R root:root ${FLUTTER_HOME}
+RUN flutter doctor
 
-RUN flutter precache --android
