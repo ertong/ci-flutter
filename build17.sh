@@ -3,7 +3,8 @@ FLUTTER_VER=3.29.0
 
 # for some reason, all these will be downloaded on the build stage anyway
 ANDROID_PACKAGES="platforms;android-30 platforms;android-33 platforms;android-34 platforms;android-35"
-ANDROID_PACKAGES="$ANDROID_PACKAGES build-tools;34.0.0 build-tools;35.0.0"
+ANDROID_PACKAGES="$ANDROID_PACKAGES build-tools;34.0.0 build-tools;35.0.0 ndk;27.0.12077973 cmake;3.22.1"
+
 
 TAG=$FLUTTER_VER-api$SDK_VER-jdk17
 
