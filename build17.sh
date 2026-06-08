@@ -1,5 +1,5 @@
 SDK_VER=36
-FLUTTER_VER=3.41.6
+FLUTTER_VER=3.44.1
 
 # for some reason, all these will be downloaded on the build stage anyway
 ANDROID_PACKAGES="platforms;android-30 platforms;android-33 platforms;android-34 platforms;android-35 platforms;android-36"
