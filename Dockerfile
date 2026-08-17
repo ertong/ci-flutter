@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 #android tools from https://github.com/cirruslabs/docker-images-android/blob/master/sdk/tools/Dockerfile
 
 
@@ -67,4 +67,3 @@ RUN mkdir -p $FLUTTER_HOME/.. && cd $FLUTTER_HOME/.. \
     && (yes | flutter doctor --android-licenses)
 
 RUN flutter doctor
-
